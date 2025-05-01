@@ -2,31 +2,27 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Clutch Scraper</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
-    <h1>Clutch Agency Explorer</h1>
-    <form id="scrape-form">
-      <label>
-        Base URL
-        <input type="url" id="base_url" value="https://clutch.co/agencies/digital-marketing" required />
-      </label>
-      <label>
-        Pages to Scrape
-        <input type="number" id="total_pages" value="3" min="1" required />
-      </label>
-      <label class="toggle">
-        <span>Headless</span>
-        <input type="checkbox" id="headless" checked />
-      </label>
+    <h1>Clutch Scraper</h1>
+    <form id="scrapeForm">
+      <label for="base_url">Base URL</label>
+      <input type="text" id="base_url" name="base_url" value="https://clutch.co/agencies/digital-marketing" required />
+
+      <label for="pages">Number of Pages</label>
+      <input type="number" id="pages" name="pages" value="3" min="1" required />
+
       <button type="submit">Start Scraping</button>
     </form>
-    <div id="status"></div>
-    <a id="download-link" href="#" hidden>Download CSV</a>
+
+    <div id="status" class="status"></div>
+    <a id="downloadLink" href="#" download class="hidden">📥 Download CSV</a>
   </div>
-  <script src="app.js"></script>
+
+  <script src="script.js"></script>
 </body>
 </html>
