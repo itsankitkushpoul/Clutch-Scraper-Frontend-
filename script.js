@@ -1,35 +1,48 @@
-const backendBase = "https://adorable-manifestation-production.up.railway.app";
+const API_BASE = 'https://YOUR_API_DOMAIN'; // ← update this to your deployed FastAPI URL
 
-document.getElementById("scrapeForm").addEventListener("submit", async (e) => {
+const form       = document.getElementById('scrape-form');
+const statusDiv  = document.getElementById('status');
+const statusText = document.getElementById('status-text');
+const recordsP   = document.getElementById('records');
+const dlLink     = document.getElementById('download-link');
+const newBtn     = document.getElementById('new-scrape');
+
+form.addEventListener('submit', async e => {
   e.preventDefault();
+  statusDiv.classList.remove('hidden');
+  statusText.textContent = 'Scraping in progress…';
+  recordsP.textContent = '';
+  dlLink.classList.add('hidden');
+  newBtn.classList.add('hidden');
 
-  const base_url = document.getElementById("base_url").value;
-  const total_pages = parseInt(document.getElementById("pages").value);
-  const statusEl = document.getElementById("status");
-  const downloadLink = document.getElementById("downloadLink");
-
-  statusEl.textContent = "⏳ Scraping in progress...";
-  statusEl.className = "status";
-  downloadLink.classList.add("hidden");
+  const payload = {
+    base_url:  document.getElementById('baseUrl').value,
+    total_pages: parseInt(document.getElementById('totalPages').value, 10),
+    headless: document.getElementById('headless').checked
+  };
 
   try {
-    const res = await fetch(`${backendBase}/scrape`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ base_url, total_pages, headless: true }),
+    const res = await fetch(`${API_BASE}/scrape`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
     });
-
-    if (!res.ok) throw new Error("Request failed");
-
     const data = await res.json();
-    statusEl.textContent = `✅ Scraping complete. ${data.records} records.`;
-    statusEl.classList.add("success");
 
-    downloadLink.href = `${backendBase}/download`;
-    downloadLink.classList.remove("hidden");
+    if (!res.ok) throw new Error(data.detail || 'Unknown error');
+    statusText.textContent = 'Scrape Complete 🎉';
+    recordsP.textContent = `Records found: ${data.records}`;
+    dlLink.href = `${API_BASE}/download`;
+    dlLink.classList.remove('hidden');
   } catch (err) {
-    console.error(err);
-    statusEl.textContent = "❌ Failed to fetch or scrape.";
-    statusEl.classList.add("error");
+    statusText.textContent = `Error: ${err.message}`;
+  } finally {
+    newBtn.classList.remove('hidden');
   }
+});
+
+newBtn.addEventListener('click', () => {
+  statusDiv.classList.add('hidden');
+  form.reset();
+  document.getElementById('headless').checked = true;
 });
