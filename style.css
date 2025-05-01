@@ -1,92 +1,93 @@
-:root {
-  --bg: #f5f7fa;
-  --card: #ffffff;
-  --primary: #0070f3;
-  --text: #333;
-}
-
 * {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
 body {
-  font-family: system-ui, sans-serif;
-  background: var(--bg);
-  color: var(--text);
+  font-family: "Inter", system-ui, sans-serif;
+  background-color: #f8f9fa;
+  color: #333;
+  margin: 0;
+  padding: 0;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: flex-start;
   min-height: 100vh;
 }
 
 .container {
-  background: var(--card);
+  background: white;
   padding: 2rem;
   border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  max-width: 400px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
   width: 100%;
+  max-width: 500px;
+  margin-top: 4rem;
 }
 
 h1 {
-  margin-bottom: 1rem;
-  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
   text-align: center;
-}
-
-form {
-  display: grid;
-  gap: 1rem;
 }
 
 label {
-  display: flex;
-  flex-direction: column;
-  font-size: 0.9rem;
+  display: block;
+  margin-top: 1rem;
+  margin-bottom: 0.3rem;
+  font-weight: 600;
 }
 
-input[type="url"], input[type="number"] {
-  padding: 0.5rem;
+input {
+  width: 100%;
+  padding: 0.7rem;
   border: 1px solid #ccc;
   border-radius: 8px;
-  margin-top: 0.25rem;
-}
-
-.toggle {
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-}
-
-button {
-  padding: 0.75rem;
-  background: var(--primary);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
   font-size: 1rem;
 }
 
-button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
+button {
+  margin-top: 1.5rem;
+  width: 100%;
+  background-color: #111;
+  color: white;
+  border: none;
+  padding: 0.8rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease;
 }
 
-#status {
-  margin-top: 1rem;
-  font-size: 0.95rem;
-  min-height: 1.2em;
+button:hover {
+  background-color: #333;
+}
+
+.status {
+  margin-top: 1.5rem;
+  font-weight: 500;
   text-align: center;
 }
 
-#download-link {
+.status.success {
+  color: green;
+}
+
+.status.error {
+  color: red;
+}
+
+#downloadLink {
   display: block;
   margin-top: 1rem;
   text-align: center;
-  color: var(--primary);
+  color: #007bff;
   text-decoration: none;
-  font-weight: bold;
+}
+
+#downloadLink:hover {
+  text-decoration: underline;
+}
+
+.hidden {
+  display: none;
 }
